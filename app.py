@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 # LostArk API KEY 설정
-API_KEY = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyIsImtpZCI6IktYMk40TkRDSTJ5NTA5NWpjTWk5TllqY2lyZyJ9.eyJpc3MiOiJodHRwczovL2x1ZHkuZ2FtZS5vbnN0b3ZlLmNvbSIsImF1ZCI6Imh0dHBzOi8vbHVkeS5nYW1lLm9uc3RvdmUuY29tL3Jlc291cmNlcyIsImNsaWVudF9pZCI6IjEwMDAwMDAwMDA1ODM2NzMifQ.ToCVUsGvPh3HvhyFdanUOeBY0_X3TNdrQRMe-h9bx-thfLIxkx6vaQSLRagOsY9WXql20TgpoKcOeAITcUB3FX8SCatb14AzfMtmJ8tMQnaA_NliZNVjBG5gp0LdNtFGtr8TsajSgkWReR6paOdJPRuOsjxeFGdSJJPUOtFnsqDzxjW8uZiJNUP2sXIHhynR1iJFuXCKDJZgnCmnH66_lxzBonPmT5Kr95wUl6x1gI7ZkRoHufrserMX_Tu-uGx8v3LNpjB6aSgL7Nbyi6C9BUaSwYnHHruXuE7t46e2Ng6u8apswOUnDV-0I0FpodjxtiLOj3rzssvs407RwkM_uA'
+API_KEY = os.getenv('LOA_API_KEY')
 headers = {
     'accept': 'application/json',
     'authorization': f'Bearer {API_KEY}'
@@ -42,6 +42,23 @@ def get_character_text():
 길드: {data.get("GuildName", "없음")}"""
 
     return result_text, 200, {'Content-Type': 'text/plain; charset=utf-8'}
+
+
+@app.route('/help', methods=['GET'])
+def help_command():
+    help_text = """📖 사용 가능한 명령어 목록
+
+✅ 캐릭터 정보 조회:
+  /character/text?name=캐릭터이름
+
+✅ 상태 확인:
+  /
+
+✅ 도움말 보기:
+  /help
+"""
+    return help_text, 200, {'Content-Type': 'text/plain; charset=utf-8'}
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
