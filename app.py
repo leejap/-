@@ -16,6 +16,7 @@ headers = {
 def home():
     return "✅ 로스트아크 Flask 서버가 정상 실행 중입니다."
 
+
 @app.route('/character/text', methods=['GET'])
 def get_character_text():
     name = request.args.get('name')
