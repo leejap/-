@@ -12,6 +12,10 @@ headers = {
     'authorization': f'Bearer {API_KEY}'
 }
 
+@app.route('/', methods=['GET'])
+def home():
+    return "✅ 로스트아크 Flask 서버가 정상 실행 중입니다."
+
 @app.route('/character/text', methods=['GET'])
 def get_character_text():
     name = request.args.get('name')
@@ -41,4 +45,3 @@ def get_character_text():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-
